@@ -7,18 +7,71 @@ const API_KEY = "0359602e6a87b3982ec17d3fd4cdb83f";
 
 class App extends React.Component {
 
-    gettingApi = async () => {
-        const api_url = await
-            fetch(`http://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=${API_KEY}&units=metric`);
-        const data = await api_url.json();
+    // no data before user types the city name
+    state = {
+        temp: undefined,
+        city: undefined,
+        country: undefined,
+        sunrise: undefined,
+        sunset: undefined,
+        error: undefined
+    }
+
+    gettingApi = async (e) => {
+        e.preventDefault();
+        const city = e.target.elements.city.value;
+
+        if (city) {
+            const api_url = await
+                fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+            const data = await api_url.json();
+
+            /*let sunrise = data.sys.sunrise;
+            let timeSunrise = new Date();
+            timeSunrise.setTime(sunrise);
+            let sunriseTime = `${timeSunrise.getHours()}:${timeSunrise.getMinutes()}:${timeSunrise.getSeconds()}`;*/
+
+            // transform sunset time
+            let sunset = data.sys.sunset;
+            let timeSunset = new Date();
+            timeSunset.setTime(sunset);
+            let sunsetTime = `${timeSunset.getHours()}:${timeSunset.getMinutes()}:${timeSunset.getSeconds()}`;
+
+            // get data from the city user typed
+            this.setState({
+                temp: data.main.temp,
+                city: data.name,
+                country: data.sys.country,
+                sunrise: data.sys.sunrise,
+                sunset: sunsetTime,
+                error: undefined
+            });
+        } else {
+            // error state if no city typed
+            this.setState({
+                temp: undefined,
+                city: undefined,
+                country: undefined,
+                sunrise: undefined,
+                sunset: undefined,
+                error: "Type the city name"
+            })
+        }
     }
 
     render() {
         return (
             <div>
                 <Info/>
-                <Form/>
-                <Weather/>
+                <Form weatherMethod={this.gettingApi}/>
+                <Weather
+                    temp={this.state.temp}
+                    city={this.state.city}
+                    country={this.state.country}
+                    sunrise={this.state.sunrise}
+                    sunset={this.state.sunset}
+                    error={this.state.error}
+                />
             </div>
         );
     }
