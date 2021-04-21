@@ -12,7 +12,7 @@ class App extends React.Component {
         temp: undefined,
         city: undefined,
         country: undefined,
-        sunrise: undefined,
+        feelsLike: undefined,
         sunset: undefined,
         error: undefined
     }
@@ -26,27 +26,41 @@ class App extends React.Component {
                 fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
             const data = await api_url.json();
 
-            // TODO: fix the sunrise time
-            /*let sunrise = data.sys.sunrise;
-            let timeSunrise = new Date();
-            timeSunrise.setTime(sunrise);
-            let sunriseTime = `${timeSunrise.getHours()}:${timeSunrise.getMinutes()}:${timeSunrise.getSeconds()}`;*/
+            // to check if the city name is correct
+            if (data?.cod === 200) { // data && data.cod
 
-            // transform sunset time
-            let sunset = data.sys.sunset;
-            let timeSunset = new Date();
-            timeSunset.setTime(sunset);
-            let sunsetTime = `${timeSunset.getHours()}:${timeSunset.getMinutes()}:${timeSunset.getSeconds()}`;
+                /*let sunrise = data.sys.sunrise;
+                let timeSunrise = new Date(sunrise);
+                // timeSunrise.setTime(sunrise);
+                console.log('----SUNRISE----', sunrise, timeSunrise)
+                let sunriseTime = `${timeSunrise.getHours()}:${timeSunrise.getMinutes()}:${timeSunrise.getSeconds()}`;*/
 
-            // get data from the city user typed
-            this.setState({
-                temp: data.main.temp,
-                city: data.name,
-                country: data.sys.country,
-                sunrise: data.sys.sunrise,
-                sunset: sunsetTime,
-                error: undefined
-            });
+                // transform sunset time
+                let sunset = data.sys.sunset;
+                let timeSunset = new Date();
+                timeSunset.setTime(sunset);
+                let sunsetTime = `${timeSunset.getHours()}:${timeSunset.getMinutes()}:${timeSunset.getSeconds()}`;
+
+                // get data from the city user typed
+                this.setState({
+                    temp: data.main.temp,
+                    city: data.name,
+                    country: data.sys.country,
+                    feelsLike: data.main.feels_like,
+                    sunset: sunsetTime,
+                    error: undefined
+                });
+            } else {
+                this.setState({
+                    temp: undefined,
+                    city: undefined,
+                    country: undefined,
+                    sunrise: undefined,
+                    sunset: undefined,
+                    error: 'City not found'
+                });
+            }
+
         } else {
             // error state if no city typed
             this.setState({
@@ -78,7 +92,7 @@ class App extends React.Component {
                                     temp={this.state.temp}
                                     city={this.state.city}
                                     country={this.state.country}
-                                    sunrise={this.state.sunrise}
+                                    feelsLike={this.state.feelsLike}
                                     sunset={this.state.sunset}
                                     error={this.state.error}
                                 />
