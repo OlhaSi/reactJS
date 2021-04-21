@@ -26,6 +26,7 @@ class App extends React.Component {
                 fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
             const data = await api_url.json();
 
+            // TODO: fix the sunrise time
             /*let sunrise = data.sys.sunrise;
             let timeSunrise = new Date();
             timeSunrise.setTime(sunrise);
@@ -61,17 +62,32 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <Info/>
-                <Form weatherMethod={this.gettingApi}/>
-                <Weather
-                    temp={this.state.temp}
-                    city={this.state.city}
-                    country={this.state.country}
-                    sunrise={this.state.sunrise}
-                    sunset={this.state.sunset}
-                    error={this.state.error}
-                />
+            <div className="wrapper">
+                <div className="main">
+
+                    <div className="container">
+                        <div className="row">
+
+                            <div className="col-sm-5 info">
+                                <Info/>
+                            </div>
+
+                            <div className="col-sm-7 form">
+                                <Form weatherMethod={this.gettingApi}/>
+                                <Weather
+                                    temp={this.state.temp}
+                                    city={this.state.city}
+                                    country={this.state.country}
+                                    sunrise={this.state.sunrise}
+                                    sunset={this.state.sunset}
+                                    error={this.state.error}
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         );
     }
