@@ -57,7 +57,7 @@ class App extends React.Component {
                     country: undefined,
                     sunrise: undefined,
                     sunset: undefined,
-                    error: 'City not found'
+                    error: 'City not found. Please check the city name and try again.'
                 });
             }
 
