@@ -1,110 +1,94 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Info from "./components/info";
 import Form from "./components/form";
 import Weather from "./components/weather";
 
 const API_KEY = "0359602e6a87b3982ec17d3fd4cdb83f";
 
-class App extends React.Component {
+const App = () => {
+    const [temp, setTemp] = useState(undefined);
+    const [city, setCity] = useState(undefined);
+    const [country, setCountry] = useState(undefined);
+    const [feelsLike, setFeelsLike] = useState(undefined);
+    const [sunset, setSunset] = useState(undefined);
+    const [error, setError] = useState(undefined);
 
-    // no data before user types the city name
-    state = {
-        temp: undefined,
-        city: undefined,
-        country: undefined,
-        feelsLike: undefined,
-        sunset: undefined,
-        error: undefined
-    }
-
-    gettingApi = async (e) => {
+    const gettingApi = async (e) => {
         e.preventDefault();
         const city = e.target.elements.city.value;
 
         if (city) {
-            const api_url = await
-                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
-            const data = await api_url.json();
+            const data = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+                .then(value => value.json());
 
             // to check if the city name is correct
             if (data?.cod === 200) { // data && data.cod
-
-                /*let sunrise = data.sys.sunrise;
-                let timeSunrise = new Date(sunrise);
-                // timeSunrise.setTime(sunrise);
-                console.log('----SUNRISE----', sunrise, timeSunrise)
-                let sunriseTime = `${timeSunrise.getHours()}:${timeSunrise.getMinutes()}:${timeSunrise.getSeconds()}`;*/
 
                 // transform sunset time
                 let sunset = data.sys.sunset;
                 let timeSunset = new Date();
                 timeSunset.setTime(sunset);
-                let sunsetTime = `${timeSunset.getHours()}:${timeSunset.getMinutes()}:${timeSunset.getSeconds()}`;
+                let sunsetTime = `${timeSunset.getHours()}:${timeSunset
+                    .getMinutes()}:${timeSunset.getSeconds()}`;
 
-                // get data from the city user typed
-                this.setState({
-                    temp: data.main.temp,
-                    city: data.name,
-                    country: data.sys.country,
-                    feelsLike: data.main.feels_like,
-                    sunset: sunsetTime,
-                    error: undefined
-                });
+                // get data from the city that user typed
+                setTemp(data.main.temp);
+                setCity(data.name);
+                setCountry(data.sys.country);
+                setFeelsLike(data.main.feels_like);
+                setSunset(sunsetTime);
+                setError(undefined);
+
             } else {
-                this.setState({
-                    temp: undefined,
-                    city: undefined,
-                    country: undefined,
-                    sunrise: undefined,
-                    sunset: undefined,
-                    error: 'City not found. Please check the city name and try again.'
-                });
+                setTemp(undefined);
+                setCity(undefined);
+                setCountry(undefined);
+                setFeelsLike(undefined);
+                setSunset(undefined);
+                setError('City not found. ' +
+                    'Please check the city name and try again.');
             }
 
         } else {
             // error state if no city typed
-            this.setState({
-                temp: undefined,
-                city: undefined,
-                country: undefined,
-                sunrise: undefined,
-                sunset: undefined,
-                error: "Type the city name"
-            })
+            setTemp(undefined);
+            setCity(undefined);
+            setCountry(undefined);
+            setFeelsLike(undefined);
+            setSunset(undefined);
+            setError('Please type the city name');
         }
     }
 
-    render() {
-        return (
-            <div className="wrapper">
-                <div className="main">
+    return (
+        <div className="wrapper">
+            <div className="main">
+                <div className="container">
+                    <div className="row">
 
-                    <div className="container">
-                        <div className="row">
-
-                            <div className="col-sm-5 info">
-                                <Info/>
-                            </div>
-
-                            <div className="col-sm-7 form">
-                                <Form weatherMethod={this.gettingApi}/>
-                                <Weather
-                                    temp={this.state.temp}
-                                    city={this.state.city}
-                                    country={this.state.country}
-                                    feelsLike={this.state.feelsLike}
-                                    sunset={this.state.sunset}
-                                    error={this.state.error}
-                                />
-                            </div>
-
+                        <div className="col-sm-5 info">
+                            <Info/>
                         </div>
-                    </div>
 
+                        <div className="col-sm-7 form">
+                            <Form weatherMethod={gettingApi}/>
+                            <Weather
+                                temp={temp}
+                                city={city}
+                                country={country}
+                                feelsLike={feelsLike}
+                                sunset={sunset}
+                                error={error}
+                            />
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default App;

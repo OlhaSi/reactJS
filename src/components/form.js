@@ -1,6 +1,5 @@
 import React from 'react';
 
-// another version of creating a component
 const Form = props => (
     <form onSubmit={props.weatherMethod}>
         <input type="text" name="city" placeholder="Enter your city"/>
