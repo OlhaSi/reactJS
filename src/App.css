@@ -13,7 +13,6 @@ body {
 }
 
 .main {
-    /*height: 70vh;*/
     background: #fff;
     box-shadow: 0 2px 80px -20px rgb(252, 252, 252);
     width: 75%;
@@ -21,7 +20,6 @@ body {
 }
 
 .info {
-    /*height: 70vh;*/
     background: url('./img/background.jpg') center no-repeat;
     background-blend-mode: overlay;
     background-color: #484747;
@@ -41,9 +39,9 @@ body {
 
 input[type="text"] {
     background-color: transparent;
-    border: 0;
+    border: none;
     border-bottom: solid 2px #ff5959;
-    /*width: 50%;*/
+    width: 100%;
     padding-bottom: 4px;
     color: #fce7e7;
     font-weight: lighter;
@@ -91,12 +89,11 @@ button:active {
 
 .infoWeather {
     padding-top: 15px;
-    width: 60%;
     font-size: 20px;
     color: #fff;
 }
 
 .error {
-    color: #fce7e7;
-    font-weight: bold;
+    color: #dbd8d8;
+    font-size: 80%;
 }
