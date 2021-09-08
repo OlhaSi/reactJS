@@ -1,99 +1,106 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 body {
-    font-family: "Open Sans", serif;
+  font-family: "Open Sans", serif;
 }
 
 .wrapper {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to right, #ffb854, #ffa65a, #ff9563, #fc856e, #f27878);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to right,
+    #ffb854,
+    #ffa65a,
+    #ff9563,
+    #fc856e,
+    #f27878
+  );
 }
 
 .main {
-    background: #fff;
-    box-shadow: 0 2px 80px -20px rgb(252, 252, 252);
-    width: 75%;
-    margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 2px 80px -20px rgb(252, 252, 252);
+  width: 75%;
+  margin: 0 auto;
 }
 
 .info {
-    background: url('./img/background.jpg') center no-repeat;
-    background-blend-mode: overlay;
-    background-color: #484747;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #000;
+  background: url("./img/background.jpg") center no-repeat;
+  background-blend-mode: overlay;
+  background-color: #484747;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #000;
 }
 
 .form {
-    height: 70vh;
-    background-color: #2c3e50;
-    padding: 20% 10%;
+  height: 70vh;
+  background-color: #2c3e50;
+  padding: 20% 10%;
 }
 
 input[type="text"] {
-    background-color: transparent;
-    border: none;
-    border-bottom: solid 2px #ff5959;
-    width: 100%;
-    padding-bottom: 4px;
-    color: #fce7e7;
-    font-weight: lighter;
-    margin-bottom: 30px;
-    margin-right: 20px;
-    font-size: 20px;
-    outline: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px #ff5959;
+  width: 100%;
+  padding-bottom: 4px;
+  color: #fce7e7;
+  font-weight: lighter;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  font-size: 20px;
+  outline: none;
 }
 
 input::-webkit-input-placeholder {
-    color: #f1ebf1;
+  color: #f1ebf1;
 }
 
 button {
-    border: none;
-    padding: 8px 20px;
-    margin: 0 2px;
-    border-radius: 2px;
-    cursor: pointer;
-    background-color: #ff5959;
-    color: #fff;
-    outline: none;
+  border: none;
+  padding: 8px 20px;
+  margin: 0 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #ff5959;
+  color: #fff;
+  outline: none;
 }
 
 button:hover {
-    background-color: #ff7f3f;
-    position: relative;
+  background-color: #ff7f3f;
+  position: relative;
 }
 
 button:active {
-    border-bottom: 2px solid transparent;
-    position: relative;
-    top: 2px;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  top: 2px;
 }
 
 .info h2 {
-    font-size: 3em;
-    color: #fdfdfd;
+  font-size: 3em;
+  color: #fdfdfd;
 }
 
 .info p {
-    color: #dbd8d8;
-    font-weight: bold;
+  color: #dbd8d8;
+  font-weight: bold;
 }
 
 .infoWeather {
-    padding-top: 15px;
-    font-size: 20px;
-    color: #fff;
+  padding-top: 15px;
+  font-size: 20px;
+  color: #fff;
 }
 
 .error {
-    color: #dbd8d8;
-    font-size: 80%;
+  color: #dbd8d8;
+  font-size: 80%;
 }
